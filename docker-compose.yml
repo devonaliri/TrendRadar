@@ -1,0 +1,43 @@
+version: '3.8'
+
+services:
+  trendradar:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: trendradar
+    restart: unless-stopped
+    environment:
+      - TZ=Asia/Tokyo
+      - PYTHONUNBUFFERED=1
+    env_file:
+      - .env
+    volumes:
+      - ./data:/app/data
+      - ./logs:/app/logs
+      - ./config:/app/config
+    ports:
+      - "8080:8080"
+    networks:
+      - trendradar-net
+
+  # Optional: Redis for caching trend data
+  redis:
+    image: redis:7-alpine
+    container_name: trendradar-redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data
+    networks:
+      - trendradar-net
+    command: redis-server --appendonly yes
+
+volumes:
+  redis-data:
+    driver: local
+
+networks:
+  trendradar-net:
+    driver: bridge
