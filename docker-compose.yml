@@ -8,7 +8,7 @@ services:
     container_name: trendradar
     restart: unless-stopped
     environment:
-      - TZ=Europe/London
+      - TZ=America/New_York
       - PYTHONUNBUFFERED=1
     env_file:
       - .env
