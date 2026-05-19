@@ -52,10 +52,11 @@ class RedisConfig:
 class CrawlerConfig:
     """Settings that control crawler behaviour."""
     # Comma-separated list of target sources, e.g. "github,hackernews,reddit"
+    # Added reddit to defaults since I want to track it locally
     sources: List[str] = field(
         default_factory=lambda: [
             s.strip()
-            for s in os.getenv("CRAWLER_SOURCES", "github,hackernews").split(",")
+            for s in os.getenv("CRAWLER_SOURCES", "github,hackernews,reddit").split(",")
             if s.strip()
         ]
     )
@@ -85,30 +86,5 @@ class CrawlerConfig:
 class AppConfig:
     """Top-level application configuration."""
     debug: bool = field(
-        default_factory=lambda: os.getenv("DEBUG", "false").lower() == "true"
+        default_factory=lambda: os.getenv("APP_DEBUG", "false").lower() in ("1", "true", "yes")
     )
-    log_level: str = field(
-        default_factory=lambda: os.getenv("LOG_LEVEL", "INFO").upper()
-    )
-    secret_key: str = field(
-        default_factory=lambda: os.getenv("SECRET_KEY", "change-me-in-production")
-    )
-    database: DatabaseConfig = field(default_factory=DatabaseConfig)
-    redis: RedisConfig = field(default_factory=RedisConfig)
-    crawler: CrawlerConfig = field(default_factory=CrawlerConfig)
-
-    def validate(self) -> None:
-        """Raise ValueError for obviously invalid configuration values."""
-        if not self.secret_key or self.secret_key == "change-me-in-production":
-            if not self.debug:
-                raise ValueError(
-                    "SECRET_KEY must be set to a secure value in production."
-                )
-        if self.crawler.concurrency < 1:
-            raise ValueError("CRAWLER_CONCURRENCY must be at least 1.")
-        if not self.crawler.sources:
-            raise ValueError("CRAWLER_SOURCES must contain at least one source.")
-
-
-# Module-level singleton — import this everywhere
-config = AppConfig()
