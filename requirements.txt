@@ -1,10 +1,59 @@
-requests==2.33.0
-pytz==2026.1
-PyYAML==6.0.3
-fastmcp==2.12.5
-websockets==13.1
-feedparser==6.0.12
-boto3==1.42.76
-litellm==1.82.6
-json-repair==0.58.6
-tenacity==8.5.0
+# Core dependencies
+requests==2.31.0
+beautifulsoup4==4.12.3
+lxml==5.1.0
+
+# Async HTTP
+aiohttp==3.9.3
+aiofiles==23.2.1
+
+# Database
+psycopg2-binary==2.9.9
+SQLAlchemy==2.0.27
+alembic==1.13.1
+
+# Redis / Caching
+redis==5.0.1
+
+# Task scheduling
+APScheduler==3.10.4
+
+# Data processing
+pandas==2.2.0
+numpy==1.26.4
+
+# AI / LLM integration
+openai==1.12.0
+tiktoken==0.6.0
+
+# Configuration & environment
+python-dotenv==1.0.1
+pydantic==2.6.1
+pydantic-settings==2.2.1
+
+# Logging
+loguru==0.7.2
+
+# HTTP server (if needed for webhooks/API)
+fastapi==0.109.2
+uvicorn[standard]==0.27.1
+
+# Telegram bot
+python-telegram-bot==20.8
+
+# RSS / Feed parsing
+feedparser==6.0.11
+
+# Rate limiting & retries
+tenacity==8.2.3
+
+# Testing
+pytest==8.0.1
+pytest-asyncio==0.23.5
+pytest-mock==3.12.0
+httpx==0.26.0
+
+# Code quality
+black==24.2.0
+isort==5.13.2
+flake8==7.0.0
