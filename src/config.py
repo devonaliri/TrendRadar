@@ -72,9 +72,10 @@ class CrawlerConfig:
     max_retries: int = field(
         default_factory=lambda: int(os.getenv("CRAWLER_MAX_RETRIES", "3"))
     )
-    # Request timeout in seconds
+    # Request timeout in seconds — bumped from 10.0 to 15.0, upstream default
+    # feels too tight on slower connections
     request_timeout: float = field(
-        default_factory=lambda: float(os.getenv("CRAWLER_REQUEST_TIMEOUT", "10.0"))
+        default_factory=lambda: float(os.getenv("CRAWLER_REQUEST_TIMEOUT", "15.0"))
     )
     # GitHub personal access token (optional, raises rate limit)
     github_token: Optional[str] = field(
@@ -84,7 +85,4 @@ class CrawlerConfig:
 
 @dataclass
 class AppConfig:
-    """Top-level application configuration."""
-    debug: bool = field(
-        default_factory=lambda: os.getenv("APP_DEBUG", "false").lower() in ("1", "true", "yes")
-    )
+    """Top-level application confi
