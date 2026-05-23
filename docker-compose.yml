@@ -8,7 +8,7 @@ services:
     container_name: trendradar
     restart: unless-stopped
     environment:
-      - TZ=Europe/London
+      - TZ=America/New_York
       - PYTHONUNBUFFERED=1
     env_file:
       - .env
@@ -33,8 +33,8 @@ services:
       - redis-data:/data
     networks:
       - trendradar-net
-    # Keeping maxmemory at 128mb to be conservative on my dev machine
-    command: redis-server --appendonly yes --maxmemory 128mb --maxmemory-policy allkeys-lru
+    # Bumped maxmemory to 256mb since my machine has plenty of RAM
+    command: redis-server --appendonly yes --maxmemory 256mb --maxmemory-policy allkeys-lru
 
 volumes:
   redis-data:
