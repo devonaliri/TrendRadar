@@ -57,3 +57,6 @@ httpx==0.26.0
 black==24.2.0
 isort==5.13.2
 flake8==7.0.0
+
+# Personal additions
+rich==13.7.0  # nicer terminal output for local debugging
