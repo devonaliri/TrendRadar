@@ -61,3 +61,4 @@ flake8==7.0.0
 # Personal additions
 rich==13.7.0  # nicer terminal output for local debugging
 ipython==8.22.1  # handy for interactive exploration/debugging sessions
+watchdog==4.0.0  # auto-reload config/scripts during local dev without restarting manually
